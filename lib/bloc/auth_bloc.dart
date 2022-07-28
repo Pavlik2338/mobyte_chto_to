@@ -14,5 +14,9 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       await auth.SingUp(event.email, event.password);
       emit(AuthInitial(success: true));
     });
+    on<SingInEvent>((event, emit) async {
+      await auth.singIn(event.email, event.password);
+      emit(AuthInitial(success: true));
+    });
   }
 }

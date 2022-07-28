@@ -22,6 +22,7 @@ class HomePage extends StatelessWidget {
   late AuthBloc bloc;
   final TextEditingController loginController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
+
   void keepLogin(String addEmail) {
     loginController.text = addEmail;
   }
@@ -45,10 +46,10 @@ class HomePage extends StatelessWidget {
                 Scaffold.of(context)
                     .showSnackBar(SnackBar(content: Text(state.errorText)));
               }
-              // if (state.success) {
-              //   Navigator.of(context).push(MaterialPageRoute(
-              //       builder: (context) => Pagereg(name: loginController.text)));
-              // }
+              if (state.success) {
+                Navigator.of(context).push(
+                    MaterialPageRoute(builder: (context) => SingUpPage()));
+              }
             }
           },
           builder: (context, state) {
@@ -68,7 +69,7 @@ class HomePage extends StatelessWidget {
                     type: TextFieldType.login,
                     callback: keepLogin,
                     controller: loginController,
-                    key: loginkey,
+                    // key: loginkey,
                   ),
                   CustomTextField(
                     hintText: "Password",
@@ -76,7 +77,7 @@ class HomePage extends StatelessWidget {
                     type: TextFieldType.password,
                     callback: keepPassword,
                     controller: passwordController,
-                    key: passwordkey,
+                    //key: passwordkey,
                   ),
                   CustomTextButton(
                     buttonText: "Forgot Password?",
@@ -90,11 +91,11 @@ class HomePage extends StatelessWidget {
                   CustomButton(
                       textButton: 'Login',
                       onPresed: () {
-                        context.read<AuthBloc>().add(
-                              SingUpEvent(
-                                  email: loginController.text,
-                                  password: passwordController.text),
-                            );
+                        bloc.add(
+                          SingInEvent(
+                              email: loginController.text,
+                              password: passwordController.text),
+                        );
                       }),
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 12),

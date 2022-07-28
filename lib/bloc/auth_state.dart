@@ -4,8 +4,10 @@ part of 'auth_bloc.dart';
 abstract class AuthState {}
 
 class AuthInitial extends AuthState {
-  final bool? error;
+  final bool error;
   final String errorText;
-  final bool? success;
+  final bool success;
   AuthInitial({this.error = false, this.errorText = "", this.success = false});
 }
+
+class LoadingState extends AuthInitial {}

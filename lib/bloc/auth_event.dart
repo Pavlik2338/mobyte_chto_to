@@ -14,5 +14,3 @@ class SingUpEvent extends AuthEvent {
   final String password;
   SingUpEvent({required this.email, required this.password});
 }
-
-class LoadingState extends AuthInitial {}

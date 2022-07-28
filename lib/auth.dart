@@ -1,9 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
 
-class AuthService {
+class Auth {
   final FirebaseAuth auth = FirebaseAuth.instance;
 
-  Future<void> singIn(String email, String password) async {
+  Future<void> SignIn(String email, String password) async {
     try {
       UserCredential userCredential = await auth.signInWithEmailAndPassword(
         email: email,
@@ -18,7 +18,7 @@ class AuthService {
     }
   }
 
-  Future<void> SingUp(String email, String password) async {
+  Future<void> SignUp(String email, String password) async {
     try {
       UserCredential userCredential = await auth.createUserWithEmailAndPassword(
           email: email, password: password);
@@ -32,4 +32,9 @@ class AuthService {
       print(e);
     }
   }
+}
+
+class AuthException implements Exception {
+  final String caption;
+  AuthException(this.caption) : super();
 }

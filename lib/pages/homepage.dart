@@ -92,7 +92,7 @@ class HomePage extends StatelessWidget {
                       textButton: 'Login',
                       onPresed: () {
                         bloc.add(
-                          SingInEvent(
+                          SignInEvent(
                               email: loginController.text,
                               password: passwordController.text),
                         );

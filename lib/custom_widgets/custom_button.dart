@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class CustomButton extends StatelessWidget {
   final String textButton;
   final Color? colorButton;
-  final Function? onPresed;
+  final Function()? onPresed;
   CustomButton(
       {required this.textButton,
       this.colorButton = Colors.white,
@@ -13,9 +13,7 @@ class CustomButton extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 14),
       child: InkWell(
-        onTap: () {
-          onPresed;
-        },
+        onTap: onPresed,
         child: Container(
           decoration: BoxDecoration(
             color: colorButton,

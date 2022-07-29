@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:mobyte_chto_to/pages/homepage.dart';
+import 'package:mobyte_chto_to/pages/login_page.dart';
 import 'package:splashscreen/splashscreen.dart';
 
 class CustomSplashScreen extends StatefulWidget {
@@ -15,7 +15,7 @@ class CustomSplashScreenState extends State<CustomSplashScreen> {
       home: Scaffold(
         body: SplashScreen(
           seconds: 2,
-          navigateAfterSeconds: HomePage(),
+          navigateAfterSeconds: LoginPage(),
           photoSize: 150,
           image: Image.asset(
             "assets/images/logo.png",

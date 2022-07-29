@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:mobyte_chto_to/resources/enums.dart';
 import 'package:mobyte_chto_to/resources/validators.dart';
 
@@ -61,7 +60,8 @@ class CustomTextFieldState extends State<CustomTextField> {
             child: TextFormField(
               controller: widget.controller,
               onEditingComplete: () {
-                widget.callback!(widget.controller!.text);
+                FocusManager.instance.primaryFocus?.unfocus();
+                widget.callback!(widget.controller);
               },
               onChanged: (String str) {
                 setState(() {

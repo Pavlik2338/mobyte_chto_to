@@ -1,9 +1,19 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
+import 'package:mobyte_chto_to/models/auth_model.dart';
 
 class Auth {
   final FirebaseAuth auth = FirebaseAuth.instance;
 
-  Future<void> SignIn(String email, String password) async {
+  Future<AuthModel> signIn(
+      String email, String password, BuildContext context) async {
+    // showDialog(
+    //     context: context,
+    //     barrierDismissible: false,
+    //     builder: (context) => const Center(
+    //           child: CircularProgressIndicator(),
+    //         ));
+    AuthModel authModel = AuthModel(isSuccess: false);
     try {
       UserCredential userCredential = await auth.signInWithEmailAndPassword(
         email: email,
@@ -16,9 +26,20 @@ class Auth {
         print('Wrong password provided for that user.');
       }
     }
+    authModel.isSuccess = true;
+    return authModel;
   }
 
-  Future<void> SignUp(String email, String password) async {
+  Future<AuthModel> signUp(
+      String email, String password, BuildContext context) async {
+    // showDialog(
+    //     context: context,
+    //     barrierDismissible: false,
+    //     builder: (context) => const Center(
+    //           child: CircularProgressIndicator(),
+    //         ));
+
+    AuthModel authModel = AuthModel(isSuccess: false);
     try {
       UserCredential userCredential = await auth.createUserWithEmailAndPassword(
           email: email, password: password);
@@ -28,9 +49,9 @@ class Auth {
       } else if (e.code == 'email-already-in-use') {
         print('The account already exists for that email.');
       }
-    } catch (e) {
-      print(e);
     }
+    authModel.isSuccess = true;
+    return authModel;
   }
 }
 

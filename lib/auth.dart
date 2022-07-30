@@ -1,22 +1,15 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:mobyte_chto_to/models/auth_model.dart';
-import 'package:mobyte_chto_to/pages/sing_up_page.dart';
 
 class Auth {
   final FirebaseAuth auth = FirebaseAuth.instance;
 
   Future<AuthModel> signIn(
       String email, String password, BuildContext context) async {
-    // showDialog(
-    //     context: context,
-    //     barrierDismissible: false,
-    //     builder: (context) => const Center(
-    //           child: CircularProgressIndicator(),
-    //         ));
     AuthModel authModel = AuthModel(isSuccess: false);
     try {
-      UserCredential userCredential = await auth.signInWithEmailAndPassword(
+      await auth.signInWithEmailAndPassword(
         email: email,
         password: password,
       );
@@ -56,12 +49,10 @@ class Auth {
     return authModel;
   }
 
-  Map<String, dynamic> map() {
-    return {
-      'userName': usesNameController.toString(),
-      'login': loginController.toString(),
-    };
-  }
+  Future<UserCredential> signInWithCredential(AuthCredential credential) =>
+      auth.signInWithCredential(credential);
+  Future<void> logout() => auth.signOut();
+  Stream<User?> get currentUser => auth.authStateChanges();
 }
 
 class AuthException implements Exception {

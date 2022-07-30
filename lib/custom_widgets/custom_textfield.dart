@@ -66,7 +66,6 @@ class CustomTextFieldState extends State<CustomTextField> {
               onChanged: (String str) {
                 setState(() {
                   currentText = str;
-                  widget.callback;
                 });
               },
               obscureText: vision,

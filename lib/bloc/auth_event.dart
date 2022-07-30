@@ -26,3 +26,11 @@ class SignUpEvent extends AuthEvent {
       required this.context,
       required this.userName});
 }
+
+class GoogleSingInEvent extends AuthEvent {}
+//
+// class LoginSubmitted extends AuthEvent {
+//   final String email;
+//   final String password;
+//   const LoginSubmitted( this.email, this.password);
+// }

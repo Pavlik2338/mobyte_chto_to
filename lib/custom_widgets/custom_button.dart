@@ -13,25 +13,25 @@ class CustomButton extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 14),
       child: InkWell(
-        onTap: onPresed,
-        child: Container(
-          decoration: BoxDecoration(
-            color: colorButton,
-            borderRadius: BorderRadius.circular(20),
-            border: Border.all(width: 0.1),
-            boxShadow: [
-              BoxShadow(
-                  color: Colors.black.withOpacity(0.25),
-                  blurRadius: 5,
-                  spreadRadius: 1)
-            ],
-            // shape: BoxShape.circle,
-          ),
-          height: 53,
-          width: 328,
-          child: Center(child: Text(textButton)),
-        ),
-      ),
+          splashColor: const Color.fromRGBO(138, 93, 165, 1),
+          onTap: onPresed,
+          child: Container(
+            decoration: BoxDecoration(
+              color: colorButton,
+              borderRadius: BorderRadius.circular(20),
+              border: Border.all(width: 0.1),
+              boxShadow: [
+                BoxShadow(
+                    color: Colors.black.withOpacity(0.25),
+                    blurRadius: 5,
+                    spreadRadius: 1)
+              ],
+              // shape: BoxShape.circle,
+            ),
+            height: 53,
+            width: 328,
+            child: Center(child: Text(textButton)),
+          )),
     );
   }
 }

@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mobyte_chto_to/pages/login_page.dart';
 import 'package:splashscreen/splashscreen.dart';

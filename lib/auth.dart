@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:mobyte_chto_to/models/auth_model.dart';
+import 'package:mobyte_chto_to/pages/sing_up_page.dart';
 
 class Auth {
   final FirebaseAuth auth = FirebaseAuth.instance;
@@ -32,12 +33,12 @@ class Auth {
 
   Future<AuthModel> signUp(
       String email, String password, BuildContext context) async {
-    // showDialog(
-    //     context: context,
-    //     barrierDismissible: false,
-    //     builder: (context) => const Center(
-    //           child: CircularProgressIndicator(),
-    //         ));
+    showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (context) => const Center(
+              child: CircularProgressIndicator(),
+            ));
 
     AuthModel authModel = AuthModel(isSuccess: false);
     try {
@@ -51,7 +52,15 @@ class Auth {
       }
     }
     authModel.isSuccess = true;
+
     return authModel;
+  }
+
+  Map<String, dynamic> map() {
+    return {
+      'userName': usesNameController.toString(),
+      'login': loginController.toString(),
+    };
   }
 }
 

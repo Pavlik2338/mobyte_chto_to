@@ -1,19 +1,16 @@
 // ignore_for_file: deprecated_member_use
-
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:mobyte_chto_to/bloc/auth_bloc.dart';
+import 'package:mobyte_chto_to/custom_widgets/google_signin.dart';
 import 'package:mobyte_chto_to/pages/forgot_passwordpage.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:mobyte_chto_to/pages/new_password.dart';
+import 'package:mobyte_chto_to/pages/homepage.dart';
 import '../custom_widgets/custom_TextField.dart';
 import '../custom_widgets/custom_textbutton.dart';
 import '../custom_widgets/custom_button.dart';
 import '../custom_widgets/custom_divider.dart';
 import '../resources/enums.dart';
 import 'sing_up_page.dart';
-
-final GlobalKey<FormState> loginkey = GlobalKey<FormState>();
 
 class LoginPage extends StatelessWidget {
   late String email;
@@ -31,7 +28,24 @@ class LoginPage extends StatelessWidget {
       child: Scaffold(
           body: BlocConsumer<AuthBloc, AuthState>(
         listener: (context, state) {
-          if (state is AuthInitial) {}
+          if (state is AuthSuccess) {
+            Navigator.push(
+                context, MaterialPageRoute(builder: (context) => HomePage()));
+          } else if (state is AuthFail) {
+            showDialog(
+                context: context,
+                barrierDismissible: false,
+                builder: (context) => const Center(
+                    //child: ,
+                    ));
+          } else if (state is AuthLoadingState) {
+            showDialog(
+                context: context,
+                barrierDismissible: false,
+                builder: (context) => const Center(
+                      child: CircularProgressIndicator(),
+                    ));
+          }
         },
         builder: (context, state) {
           if (state is AuthInitial) {
@@ -80,7 +94,7 @@ class LoginPage extends StatelessWidget {
                       );
                     }),
                 Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 12),
+                  padding: const EdgeInsets.symmetric(vertical: 8),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -102,6 +116,16 @@ class LoginPage extends StatelessWidget {
                   ),
                 ),
                 CustomDivider(),
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 10),
+                  child: GoogleSignInButton(
+                    onPresed: () {
+                      authBloc.add(
+                        GoogleSingInEvent(),
+                      );
+                    },
+                  ),
+                )
               ],
             );
           }
@@ -114,6 +138,8 @@ class LoginPage extends StatelessWidget {
                 ],
               ),
             );
+          } else if (state is AuthSuccess) {
+            return HomePage();
           }
           return LoginPage();
         },

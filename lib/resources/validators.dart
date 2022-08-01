@@ -6,20 +6,14 @@ class Validators {
       if (txt.isEmpty) {
         return "Invalid password!";
       }
-      if (txt.length < 8) {
-        return "Password must has 8 characters";
-      }
-      if (!txt.contains(RegExp(r'[A-Z]'))) {
-        return "Password must has uppercase";
+      if (txt.length < 6) {
+        return "Password must has 6 characters";
       }
       if (!txt.contains(RegExp(r'[0-9]'))) {
         return "Password must has digits";
       }
       if (!txt.contains(RegExp(r'[a-z]'))) {
         return "Password must has lowercase";
-      }
-      if (!txt.contains(RegExp(r'[#?!@$%^&*-]'))) {
-        return "Password must has special characters";
       } else {
         return null;
       }

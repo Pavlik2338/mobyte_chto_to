@@ -1,26 +1,48 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../bloc/auth_bloc.dart';
 
 class HomePage extends StatelessWidget {
+  String email = 'dsadaddd';
+  String? username;
+  HomePage({required this.email, this.username});
+  final AuthBloc authBloc = AuthBloc();
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SafeArea(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            const SizedBox(height: 96),
-            Padding(
-              padding: const EdgeInsets.only(bottom: 41),
-              child: Image.asset(
-                "assets/images/logo.png",
-                width: 250,
-                height: 250,
-              ),
+    return BlocProvider<AuthBloc>(
+        create: (context) => AuthBloc(),
+        child: Scaffold(
+          body: SafeArea(
+            child: Column(
+              children: [
+                Align(
+                  alignment: Alignment.center,
+                  child: Image.asset(
+                    "assets/images/logo.png",
+                    width: 250,
+                    height: 250,
+                  ),
+                ),
+                Text(
+                  email,
+                  style: const TextStyle(
+                    fontFamily: 'Nunito',
+                    fontSize: 18,
+                  ),
+                ),
+                RaisedButton(
+                  onPressed: () {
+                    authBloc.add(SingOutEvent());
+                  },
+                  child: const Text(
+                    "Sign Out",
+                    style: TextStyle(fontSize: 14),
+                  ),
+                )
+              ],
             ),
-          ],
-        ),
-      ),
-    );
+          ),
+        ));
   }
 }

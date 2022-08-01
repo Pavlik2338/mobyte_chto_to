@@ -1,6 +1,7 @@
 // ignore_for_file: deprecated_member_use
 import 'package:flutter/material.dart';
 import 'package:mobyte_chto_to/bloc/auth_bloc.dart';
+import 'package:mobyte_chto_to/custom_widgets/apple_signin.dart';
 import 'package:mobyte_chto_to/custom_widgets/google_signin.dart';
 import 'package:mobyte_chto_to/pages/forgot_passwordpage.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -29,8 +30,8 @@ class LoginPage extends StatelessWidget {
           body: BlocConsumer<AuthBloc, AuthState>(
         listener: (context, state) {
           if (state is AuthSuccess) {
-            Navigator.push(
-                context, MaterialPageRoute(builder: (context) => HomePage()));
+            // Navigator.push(context,
+            //     MaterialPageRoute(builder: (context) =>  HomePage()));
           } else if (state is AuthFail) {
             showDialog(
                 context: context,
@@ -92,6 +93,7 @@ class LoginPage extends StatelessWidget {
                             password: passwordController.text,
                             context: context),
                       );
+                      print(state);
                     }),
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 8),
@@ -125,7 +127,8 @@ class LoginPage extends StatelessWidget {
                       );
                     },
                   ),
-                )
+                ),
+                AppleSignInButton(),
               ],
             );
           }
@@ -138,8 +141,6 @@ class LoginPage extends StatelessWidget {
                 ],
               ),
             );
-          } else if (state is AuthSuccess) {
-            return HomePage();
           }
           return LoginPage();
         },

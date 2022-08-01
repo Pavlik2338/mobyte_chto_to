@@ -18,13 +18,22 @@ class SignInEvent extends AuthEvent {
 class SignUpEvent extends AuthEvent {
   final String email;
   final String password;
+  final String userName;
   final BuildContext context;
-  String? userName;
+
   SignUpEvent(
       {required this.email,
       required this.password,
       required this.context,
       required this.userName});
+}
+
+class SingOutEvent extends AuthEvent {}
+
+class ResetPasswordEvent extends AuthEvent {
+  final String email;
+  final BuildContext context;
+  ResetPasswordEvent({required this.email, required this.context});
 }
 
 class GoogleSingInEvent extends AuthEvent {}

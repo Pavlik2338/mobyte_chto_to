@@ -1,13 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:mobyte_chto_to/custom_widgets/custom_backbutton.dart';
-import 'package:mobyte_chto_to/custom_widgets/custom_textfield.dart';
-import 'package:mobyte_chto_to/pages/reset_password_page.dart';
-import 'package:mobyte_chto_to/resources/enums.dart';
 
+import '../custom_widgets/custom_backbutton.dart';
 import '../custom_widgets/custom_button.dart';
+import '../custom_widgets/custom_textfield.dart';
+import '../resources/enums.dart';
+import 'package:pin_code_fields/pin_code_fields.dart';
 
-class ForgotPage extends StatelessWidget {
-  TextEditingController loginController = TextEditingController();
+class ResetPassword extends StatefulWidget {
+  String email;
+  ResetPassword({required this.email});
+  ResetPasswordState createState() => ResetPasswordState();
+}
+
+class ResetPasswordState extends State<ResetPassword> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -25,40 +30,36 @@ class ForgotPage extends StatelessWidget {
               // ignore: prefer_const_literals_to_create_immutables
               children: [
                 const Text(
-                  'Forgot Your Password?',
+                  'Enter Verification Code',
                   style: TextStyle(
                       color: Color.fromRGBO(27, 27, 27, 1),
                       fontWeight: FontWeight.w700,
                       fontSize: 20,
                       fontFamily: 'Nunito'),
                 ),
-                const Text(
-                  'No worries, you just need to type your \n phone number or username and we will\n send the verification code',
-                  style: TextStyle(
+                Text(
+                  'Enter code that we have sent to your email \n ${widget.email}',
+                  style: const TextStyle(
                       color: Color.fromRGBO(117, 117, 117, 1),
                       fontWeight: FontWeight.w600,
                       fontSize: 16,
                       fontFamily: 'Nunito'),
                 ),
-                CustomTextField(
-                  hintText: 'Reset my password',
-                  type: TextFieldType.nothing,
-                  controller: loginController,
+                Padding(
+                  padding: const EdgeInsets.all(12),
+                  child: PinCodeTextField(
+                    appContext: context,
+                    length: 4,
+                    onChanged: (value) {},
+                    backgroundColor: Color.fromRGBO(241, 244, 250, 1),
+                  ),
                 ),
                 Padding(
                   padding:
                       const EdgeInsets.symmetric(vertical: 36, horizontal: 14),
                   child: CustomButton(
-                    textButton: "Register",
+                    textButton: "Verify",
                     colorButton: const Color.fromRGBO(138, 93, 165, 1),
-                    onPresed: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => ResetPassword(
-                                    email: loginController.text,
-                                  )));
-                    },
                   ),
                 ),
               ],

@@ -6,6 +6,7 @@ import 'package:mobyte_chto_to/custom_widgets/google_signin.dart';
 import 'package:mobyte_chto_to/pages/forgot_passwordpage.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mobyte_chto_to/pages/homepage.dart';
+import 'package:mobyte_chto_to/resources/validate_form.dart';
 import '../custom_widgets/custom_TextField.dart';
 import '../custom_widgets/custom_textbutton.dart';
 import '../custom_widgets/custom_button.dart';
@@ -16,6 +17,8 @@ import 'sing_up_page.dart';
 class LoginPage extends StatelessWidget {
   late String email;
   late String password;
+  final keyEmail = GlobalKey<FormState>();
+  final keyPassword = GlobalKey<FormState>();
 
   TextEditingController loginController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
@@ -65,15 +68,16 @@ class LoginPage extends StatelessWidget {
                   type: TextFieldType.login,
 
                   controller: loginController,
-                  // // key: loginkey,
+                  // key: keyEmail,
+                  // validator: (text) => ValidateForm().validateEmail(text),
                 ),
                 CustomTextField(
                   hintText: "Password",
                   haveVision: true,
                   type: TextFieldType.password,
-
                   controller: passwordController,
-                  // //key: passwordkey,
+                  key: keyPassword,
+                  validator: (text) => ValidateForm().validatePassword(text),
                 ),
                 CustomTextButton(
                   buttonText: "Forgot Password?",

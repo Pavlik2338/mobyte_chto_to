@@ -20,10 +20,6 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     Firebase.initializeApp().then((value) => google = AuthGoogle());
     on<SignInEvent>((event, emit) {
       auth.signIn(event.email, event.password, event.context);
-      // Navigator.push(
-      //     event.context,
-      //     MaterialPageRoute(
-      //         builder: (context) => HomePage(email: event.email)));
       emit(AuthSuccess());
     });
     on<SignUpEvent>((event, emit) {

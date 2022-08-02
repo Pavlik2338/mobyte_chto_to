@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -27,7 +29,9 @@ class Auth {
         String newEmail = await UserNameAuth().sheckIn(email);
         signIn(newEmail, password, context);
       } else if (e.code == 'wrong-password') {
-        print('Wrong password provided for that user.');
+        const SnackBar(
+          content: Text('Wrong password provided for that user.'),
+        );
       }
     }
     authModel.isSuccess = true;
@@ -51,9 +55,13 @@ class Auth {
           email: email, password: password);
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
-        print('The password provided is too weak.');
+        const SnackBar(
+          content: Text('The password provided is too weak.'),
+        );
       } else if (e.code == 'email-already-in-use') {
-        print('The account already exists for that email.');
+        const SnackBar(
+          content: Text('The account already exists for that email.'),
+        );
       }
     }
     authModel.isSuccess = true;

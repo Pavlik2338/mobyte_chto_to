@@ -1,12 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class UserNameAuth {
-  dynamic sheckIn(String email) {
-    var snap = FirebaseFirestore.instance
+  Future<String> sheckIn(String username) async {
+    var snap = await FirebaseFirestore.instance
         .collection('users')
-        .where("userName", isEqualTo: email)
-        .get()
-        .toString();
-    return snap;
+        .doc(username)
+        .get();
+    // .toString();
+    return await snap.get('email');
   }
 }

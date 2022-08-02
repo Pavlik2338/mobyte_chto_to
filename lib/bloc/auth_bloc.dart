@@ -20,10 +20,10 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     Firebase.initializeApp().then((value) => google = AuthGoogle());
     on<SignInEvent>((event, emit) {
       auth.signIn(event.email, event.password, event.context);
-      Navigator.push(
-          event.context,
-          MaterialPageRoute(
-              builder: (context) => HomePage(email: event.email)));
+      // Navigator.push(
+      //     event.context,
+      //     MaterialPageRoute(
+      //         builder: (context) => HomePage(email: event.email)));
       emit(AuthSuccess());
     });
     on<SignUpEvent>((event, emit) {
@@ -38,7 +38,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       emit(AuthSuccess());
     });
     on<SingOutEvent>((event, emit) {
-      auth.signOut();
+      auth.signOut(event.context);
       emit(AuthSuccess());
     });
     on<ResetPasswordEvent>((event, emit) {
@@ -47,6 +47,10 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
           event.context, MaterialPageRoute(builder: (context) => LoginPage()));
       emit(AuthSuccess());
     });
+    on<VerifyEvent>(((event, emit) {
+      auth.verify(event.code);
+      emit(AuthSuccess());
+    }));
     on<GoogleSingInEvent>(((event, emit) {
       google.signIn();
       emit(AuthSuccess());

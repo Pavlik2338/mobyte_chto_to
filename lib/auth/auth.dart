@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/foundation.dart';
+
 import 'package:flutter/material.dart';
 import 'package:mobyte_chto_to/models/auth_model.dart';
 import 'package:mobyte_chto_to/models/user_model.dart';
@@ -13,45 +13,18 @@ class Auth {
   Future<AuthModel> signIn(
       String email, String password, BuildContext context) async {
     AuthModel authModel = AuthModel(isSuccess: false);
-    List allUser = [];
-    var getUser = await FirebaseFirestore.instance.collection('users').get();
+
     try {
       await auth.signInWithEmailAndPassword(
         email: email,
         password: password,
       );
-      print(
-          '------------------------------------------------------------------------------------------------------------------------------------------d');
-      print(email);
-      // ignore: use_build_context_synchronously
-      // Navigator.push(context,
-      //     MaterialPageRoute(builder: (context) => HomePage(email: email)));
+
+      Navigator.push(context,
+          MaterialPageRoute(builder: (context) => HomePage(email: email)));
     } on FirebaseAuthException catch (e) {
       if (e.code == 'invalid-email') {
-        print(
-            '------------------------------------------------------------------------------------------------------------------------------------------d');
-        print(
-            '------------------------------------------------------------------------------------------------------------------------------------------d');
-        print(
-            '------------------------------------------------------------------------------------------------------------------------------------------d');
-        print(
-            '------------------------------------------------------------------------------------------------------------------------------------------d');
-        print(
-            '------------------------------------------------------------------------------------------------------------------------------------------d');
-
-        print(
-            '------------------------------------------------------------------------------------------------------------------------------------------d');
-        print(
-            '------------------------------------------------------------------------------------------------------------------------------------------d');
-        print(
-            '------------------------------------------------------------------------------------------------------------------------------------------d');
-        print(
-            '------------------------------------------------------------------------------------------------------------------------------------------d');
-
-        print(
-            '------------------------------------------------------------------------------------------------------------------------------------------d');
-        String newEmail = UserNameAuth().sheckIn(email);
-        print(newEmail);
+        String newEmail = await UserNameAuth().sheckIn(email);
         signIn(newEmail, password, context);
       } else if (e.code == 'wrong-password') {
         print('Wrong password provided for that user.');
@@ -88,12 +61,19 @@ class Auth {
     return authModel;
   }
 
-  Future<void> signOut() async {
+  Future<void> signOut(BuildContext context) async {
     await auth.signOut();
+    Navigator.pop(context);
   }
 
-  Future resetPassword(String email) async {
+  Future<void> resetPassword(String email) async {
     await FirebaseAuth.instance.sendPasswordResetEmail(email: email);
+  }
+
+  Future<void> verify(String code) async {
+    User? user = auth.currentUser;
+    user!.sendEmailVerification();
+    await auth.verifyPasswordResetCode(code);
   }
 }
 

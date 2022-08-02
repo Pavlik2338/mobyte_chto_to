@@ -28,7 +28,15 @@ class SignUpEvent extends AuthEvent {
       required this.userName});
 }
 
-class SingOutEvent extends AuthEvent {}
+class SingOutEvent extends AuthEvent {
+  final BuildContext context;
+  SingOutEvent({required this.context});
+}
+
+class VerifyEvent extends AuthEvent {
+  final String code;
+  VerifyEvent({required this.code});
+}
 
 class ResetPasswordEvent extends AuthEvent {
   final String email;

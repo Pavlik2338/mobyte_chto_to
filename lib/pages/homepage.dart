@@ -33,7 +33,7 @@ class HomePage extends StatelessWidget {
                 ),
                 RaisedButton(
                   onPressed: () {
-                    authBloc.add(SingOutEvent());
+                    authBloc.add(SingOutEvent(context: context));
                   },
                   child: const Text(
                     "Sign Out",
